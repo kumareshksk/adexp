@@ -1,3 +1,48 @@
+function Create-SecurityDescriptor {
+    param (
+        [string]$ComputerSid
+    )
+
+    # Create the RawSecurityDescriptor object
+    $SD = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList "O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;$($ComputerSid))"
+
+    # Create a byte array to hold the binary form of the descriptor
+    $SDBytes = New-Object byte[] ($SD.BinaryLength)
+
+    # Populate the byte array with the binary form of the descriptor
+    $SD.GetBinaryForm($SDBytes, 0)
+
+    # Return both the RawSecurityDescriptor and its byte form
+    return [PSCustomObject]@{
+        SecurityDescriptor = $SD
+        DescriptorBytes = $SDBytes
+    }
+}
+
+# Usage:
+$ComputerSid = (Get-WmiObject -Class Win32_ComputerSystem).DomainSID
+$Result = Create-SecurityDescriptor -ComputerSid $ComputerSid
+
+# To see the results
+$Result.SecurityDescriptor
+$Result.DescriptorBytes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Add-Type -TypeDefinition "using System; using System.Security.AccessControl; public class SecurityDescriptorWrapper { public static RawSecurityDescriptor GetDescriptor(string sid) { return new RawSecurityDescriptor(\"O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;\" + sid + \")\"); } }"
 
 
