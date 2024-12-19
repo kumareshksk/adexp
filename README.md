@@ -1,3 +1,10 @@
+Add-Type -TypeDefinition "using System; using System.Security.AccessControl; public class SecurityDescriptorWrapper { public static RawSecurityDescriptor GetDescriptor(string sid) { return new RawSecurityDescriptor(\"O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;\" + sid + \")\"); } }"
+
+
+
+
+
+
 Add-Type -TypeDefinition "using System; using System.Security.AccessControl; public class SecurityDescriptorWrapper { public static RawSecurityDescriptor GetDescriptor(string sid) { return new RawSecurityDescriptor(\"O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;\" + sid + \")\"); } }" ; $ComputerSid = (Get-WmiObject -Class Win32_ComputerSystem).DomainSID ; $SD = [SecurityDescriptorWrapper]::GetDescriptor($ComputerSid) ; Write-Host "Security Descriptor: $SD"
 
 Add-Type -TypeDefinition "using System; using System.Security.AccessControl; public class SecurityDescriptorWrapper { public static RawSecurityDescriptor GetDescriptor(string sid) { return new RawSecurityDescriptor(\"O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;\" + sid + \")\"); } }" ; $ComputerSid = (Get-WmiObject -Class Win32_ComputerSystem).DomainSID ; $SD = [SecurityDescriptorWrapper]::GetDescriptor($ComputerSid) ; Write-Host "Security Descriptor: $SD"
