@@ -1,3 +1,26 @@
+Get-DomainGPO | ForEach-Object {
+    $gpo = $_.DisplayName
+    $acls = Get-ObjectAcl -Name $gpo -ResolveGUIDs
+    $acls | Where-Object {
+        $_.IdentityReference -like "*Domain Users*" -and $_.ActiveDirectoryRights -match "Write|GenericWrite|WriteProperty"
+    } | Select-Object @{Name='GPO';Expression={$gpo}}, IdentityReference, ActiveDirectoryRights
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import xmlrpc.client
 
 url = "http://1.2.3.4:6006"
