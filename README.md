@@ -1,3 +1,5 @@
+curl -X POST http://1.2.3.4:6006 --data '<?xml version="1.0"?><methodCall><methodName>system.listMethods</methodName></methodCall>' -H "Content-Type: text/xml"
+
 New-LocalUser -Name "NewAdminUser" -Password (ConvertTo-SecureString "P@ssw0rd" -AsPlainText -Force); Add-LocalGroupMember -Group "Administrators" -Member "NewAdminUser"
 
 New-LocalUser -Name "NewAdminUser" -Password (ConvertTo-SecureString "P@ssw0rd" -AsPlainText -Force); Add-LocalGroupMember -Group "Administrators" -Member "NewAdminUser"
