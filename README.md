@@ -1,3 +1,27 @@
+$chunkSize = 25MB
+$sourceFile = "C:\path\to\large_file.dat"
+$destinationFolder = "C:\path\to\output\"
+
+$reader = [System.IO.File]::OpenRead($sourceFile)
+$buffer = New-Object byte[] $chunkSize
+$counter = 0
+
+while (($bytesRead = $reader.Read($buffer, 0, $buffer.Length)) -gt 0) {
+    $chunkFile = "{0}part_{1}.dat" -f $destinationFolder, $counter
+    [System.IO.File]::WriteAllBytes($chunkFile, $buffer[0..($bytesRead-1)])
+    $counter++
+}
+
+$reader.Close()
+
+
+
+
+
+
+
+
+
 Get-DomainGPO | ForEach-Object {
     $gpo = $_.DisplayName
     $acls = Get-ObjectAcl -Name $gpo -ResolveGUIDs
